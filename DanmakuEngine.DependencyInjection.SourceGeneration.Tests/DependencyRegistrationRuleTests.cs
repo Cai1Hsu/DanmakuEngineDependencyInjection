@@ -2,7 +2,7 @@ using Verifier = DanmakuEngine.DependencyInjection.SourceGeneration.Tests.Verifi
 
 namespace DanmakuEngine.DependencyInjection.SourceGeneration.Tests;
 
-public class DependenciesRegistrationAnalyzerTests
+public class DependencyRegistrationRuleTests
 {
     [Test]
     public async Task Flag_WhenRegisterOnNonDependencyContainer()
@@ -16,7 +16,7 @@ public class DependenciesRegistrationAnalyzerTests
                             }
                             """;
 
-        var expected = Verifier.Diagnostic(RegistrationRule.DependencyContainerRule).WithLocation(0);
+        var expected = Verifier.Diagnostic(DependencyRegistrationRule.DependencyContainerRule).WithLocation(0);
 
         await Verifier.VerifyAnalyzerAsync(text, expected).ConfigureAwait(false);
     }

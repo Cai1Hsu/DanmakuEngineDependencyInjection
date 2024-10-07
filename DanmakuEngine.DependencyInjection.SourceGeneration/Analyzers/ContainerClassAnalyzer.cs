@@ -13,7 +13,7 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
         => AnalyzingRules.SelectMany(r => r.SupportedDiagnostics).ToImmutableArray();
 
     public static ImmutableArray<ContainerClassAnalyzingRule> AnalyzingRules = ImmutableArray.Create<ContainerClassAnalyzingRule>(
-        new RegistrationRule(),
+        new DependencyRegistrationRule(),
         new ContainerModifierRule(),
         new MultipleRegistrationRule()
     );
@@ -32,7 +32,7 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
 
         var attributes = namedTypeSymbol.GetAttributes();
 
-        bool isContainer = attributes.Any(a => a.AttributeClass?.ToGlobalPrefixedFullName() == RegistrationRule.DependencyContainerAttribute);
+        bool isContainer = attributes.Any(a => a.AttributeClass?.ToGlobalPrefixedFullName() == DependencyRegistrationRule.DependencyContainerAttribute);
 
         foreach (var rule in AnalyzingRules)
         {

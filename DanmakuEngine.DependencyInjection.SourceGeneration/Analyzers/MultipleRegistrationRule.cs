@@ -29,7 +29,7 @@ public class MultipleRegistrationRule : ContainerClassAnalyzingRule
 
         // Get the generic type parameters of all attributes
         var registrationAttributes = attributes.Where(a => a.AttributeClass is not null
-            && RegistrationRule.RegistrationAttributes.Contains(a.AttributeClass.ToGlobalPrefixedFullName()));
+            && DependencyRegistrationRule.RegistrationAttributes.Contains(a.AttributeClass.ToGlobalPrefixedFullName()));
 
         if (registrationAttributes is null || !registrationAttributes.Any())
             return;

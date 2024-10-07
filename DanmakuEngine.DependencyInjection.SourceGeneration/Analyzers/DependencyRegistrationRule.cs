@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers;
 
-public class RegistrationRule : ContainerClassAnalyzingRule
+public class DependencyRegistrationRule : ContainerClassAnalyzingRule
 {
     public override bool RequiredToBeContainer => false;
 

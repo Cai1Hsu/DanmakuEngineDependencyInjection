@@ -2,7 +2,7 @@ using Verifier = DanmakuEngine.DependencyInjection.SourceGeneration.Tests.Verifi
 
 namespace DanmakuEngine.DependencyInjection.SourceGeneration.Tests;
 
-public class ContainerModifierAnalyzerTests
+public class ContainerModifierRuleTests
 {
     [Test]
     public async Task Flag_WhenNoPartialModifier()
