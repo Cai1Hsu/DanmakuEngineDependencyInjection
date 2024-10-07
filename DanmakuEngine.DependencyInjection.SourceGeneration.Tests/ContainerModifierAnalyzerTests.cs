@@ -42,6 +42,24 @@ public class ContainerModifierAnalyzerTests
     }
 
     [Test]
+    public async Task No_Error_WhenPartialModifierAppliedForAllClasses()
+    {
+        const string text = """
+                            using DanmakuEngine.DependencyInjection;
+                            
+                            partial class Foo
+                            {
+                                [DependencyContainer]
+                                partial class MyContainer
+                                {
+                                }
+                            }
+                            """;
+
+        await Verifier.VerifyAnalyzerAsync(text).ConfigureAwait(false);
+    }
+
+    [Test]
     public async Task No_Error_WhenPartialModifier()
     {
         const string text = """
