@@ -13,13 +13,14 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
         => ImmutableArray.Create(
             RegistrationRule.DependencyContainerRule,
             ContainerModifierRule.ContainerCanNotBeStatic,
-            ContainerModifierRule.ContainerMustBePartial
+            ContainerModifierRule.ContainerMustBePartial,
+            MultipleRegistrationRule.MultipleRegistration
         );
 
     public static ImmutableArray<ContainerClassAnalyzingRule> AnalyzingRules = ImmutableArray.Create<ContainerClassAnalyzingRule>(
         new RegistrationRule(),
-        new ContainerModifierRule()
-        // TODO
+        new ContainerModifierRule(),
+        new MultipleRegistrationRule()
     );
 
     public override void Initialize(AnalysisContext context)
