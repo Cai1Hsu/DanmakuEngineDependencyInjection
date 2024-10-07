@@ -6,7 +6,7 @@ public class SingletonAttribute<TDependency> : Attribute
 }
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
-public class SingletonAttribute<TDependency, TImplementation> : SingletonAttribute<TDependency>
+public class SingletonAttribute<TDependency, TImplementation> : Attribute
     where TImplementation : TDependency
 {
 }
