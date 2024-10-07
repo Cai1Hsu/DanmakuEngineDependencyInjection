@@ -17,6 +17,8 @@ public class MultipleRegistrationRule : ContainerClassAnalyzingRule
         defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(MultipleRegistration);
+
     public override bool RequiredToBeContainer => true;
 
     public override void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)

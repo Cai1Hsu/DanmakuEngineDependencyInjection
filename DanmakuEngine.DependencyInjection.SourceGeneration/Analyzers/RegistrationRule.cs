@@ -10,6 +10,8 @@ public class RegistrationRule : ContainerClassAnalyzingRule
 {
     public override bool RequiredToBeContainer => false;
 
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DependencyContainerRule);
+
     public static readonly DiagnosticDescriptor DependencyContainerRule = new(
        "DEDI0001",
        title: "Dependencies MUST be registered on a dependency container",

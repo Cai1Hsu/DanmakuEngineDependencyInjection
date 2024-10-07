@@ -1,5 +1,6 @@
 #pragma warning disable RS2008 // Enable analyzer release tracking
 
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -28,6 +29,8 @@ public class ContainerModifierRule : ContainerClassAnalyzingRule
         isEnabledByDefault: true);
 
     public override bool RequiredToBeContainer => true;
+
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(ContainerMustBePartial, ContainerCanNotBeStatic);
 
     public override void AnalyzeSymbol(SymbolAnalysisContext context, bool _)
     {

@@ -10,12 +10,7 @@ namespace DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers;
 public class ContainerClassAnalyzer : DiagnosticAnalyzer
 {
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
-        => ImmutableArray.Create(
-            RegistrationRule.DependencyContainerRule,
-            ContainerModifierRule.ContainerCanNotBeStatic,
-            ContainerModifierRule.ContainerMustBePartial,
-            MultipleRegistrationRule.MultipleRegistration
-        );
+        => AnalyzingRules.SelectMany(r => r.SupportedDiagnostics).ToImmutableArray();
 
     public static ImmutableArray<ContainerClassAnalyzingRule> AnalyzingRules = ImmutableArray.Create<ContainerClassAnalyzingRule>(
         new RegistrationRule(),
