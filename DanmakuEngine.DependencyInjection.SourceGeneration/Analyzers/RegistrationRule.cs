@@ -6,9 +6,10 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers;
 
-[DiagnosticAnalyzer(LanguageNames.CSharp)]
-public class DependencyRegistrationAnalyzer : DiagnosticAnalyzer
+public class RegistrationRule : ContainerClassAnalyzingRule
 {
+    public override bool RequiredToBeContainer => false;
+
     public static readonly DiagnosticDescriptor DependencyContainerRule = new(
        "DEDI0001",
        title: "Dependencies MUST be registered on a dependency container",
@@ -18,16 +19,6 @@ public class DependencyRegistrationAnalyzer : DiagnosticAnalyzer
        defaultSeverity: DiagnosticSeverity.Warning,
        isEnabledByDefault: true);
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
-        => ImmutableArray.Create(DependencyContainerRule);
-
-    public override void Initialize(AnalysisContext context)
-    {
-        context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-        context.EnableConcurrentExecution();
-
-        context.RegisterSymbolAction(AnalyzeSymbol, SymbolKind.NamedType);
-    }
 
     public static ImmutableArray<string> RegistrationAttributes =
     [
@@ -38,13 +29,13 @@ public class DependencyRegistrationAnalyzer : DiagnosticAnalyzer
 
     public static string DependencyContainerAttribute = "global::DanmakuEngine.DependencyInjection.DependencyContainerAttribute";
 
-    public void AnalyzeSymbol(SymbolAnalysisContext context)
+    public override void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 
         ImmutableArray<AttributeData> attributes = namedTypeSymbol.GetAttributes();
 
-        if (attributes.Any(a => a.AttributeClass?.ToGlobalPrefixedFullName() == DependencyContainerAttribute))
+        if (IsContainer)
         {
             return;
         }

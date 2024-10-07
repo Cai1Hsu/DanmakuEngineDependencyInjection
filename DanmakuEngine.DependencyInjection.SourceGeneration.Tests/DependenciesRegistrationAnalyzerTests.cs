@@ -1,4 +1,4 @@
-using Verifier = DanmakuEngine.DependencyInjection.SourceGeneration.Tests.Verifiers.CSharpAnalyzerVerifier<DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers.DependencyRegistrationAnalyzer>;
+using Verifier = DanmakuEngine.DependencyInjection.SourceGeneration.Tests.Verifiers.CSharpAnalyzerVerifier<DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers.ContainerClassAnalyzer>;
 
 namespace DanmakuEngine.DependencyInjection.SourceGeneration.Tests;
 
@@ -16,7 +16,7 @@ public class DependenciesRegistrationAnalyzerTests
                             }
                             """;
 
-        var expected = Verifier.Diagnostic(DependencyRegistrationAnalyzer.DependencyContainerRule).WithLocation(0);
+        var expected = Verifier.Diagnostic(RegistrationRule.DependencyContainerRule).WithLocation(0);
 
         await Verifier.VerifyAnalyzerAsync(text, expected).ConfigureAwait(false);
     }
