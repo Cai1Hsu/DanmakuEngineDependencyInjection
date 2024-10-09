@@ -78,5 +78,4 @@ public class RegistrationTypeRule : ContainerClassAnalyzingRule
 
     private static TypeArgumentListSyntax GetTypeArgumentListSyntax(SyntaxReference syntaxReference)
         => ((AttributeSyntax)syntaxReference.GetSyntax()).GetTypeArgumentList();
-
 }
