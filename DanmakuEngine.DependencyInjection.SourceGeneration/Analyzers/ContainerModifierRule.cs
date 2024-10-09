@@ -22,14 +22,19 @@ public class ContainerModifierRule : IContainerClassAnalysisRule
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 
-        var containerDeclarationSyntax = namedTypeSymbol.DeclaringSyntaxReferences.Select(r => r.GetSyntax())
+        // We don't generate code for abstract classes or interfaces
+        // so checks are not needed
+        if (!namedTypeSymbol.IsAbstract)
+        {
+            var containerDeclarationSyntax = namedTypeSymbol.DeclaringSyntaxReferences.Select(r => r.GetSyntax())
                 .OfType<ClassDeclarationSyntax>();
 
-        if (containerDeclarationSyntax is null)
-            return;
+            if (containerDeclarationSyntax is null)
+                return;
 
-        EnsureNoStaticContainer(context, containerDeclarationSyntax);
-        EnsureContainerIsPartial(context);
+            EnsureNoStaticContainer(context, containerDeclarationSyntax);
+            EnsureContainerIsPartial(context);
+        }
     }
 
     private void AnalyzeContainingTypeRecursively(SymbolAnalysisContext context, INamedTypeSymbol namedTypeSymbol)
