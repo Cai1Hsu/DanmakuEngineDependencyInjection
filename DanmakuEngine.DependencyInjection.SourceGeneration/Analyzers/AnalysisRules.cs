@@ -4,8 +4,16 @@ using Microsoft.CodeAnalysis;
 
 namespace DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers;
 
-public static class AnalyzingRules
+public static class AnalysisRules
 {
+    public static readonly DiagnosticDescriptor AnalyzerException = new(
+        "DEDI0000",
+        title: "Analyzer Exception",
+        messageFormat: "An exception occurred while analyzing rule {0} on {1}, message: {1}",
+        description: "",
+        category: "Design",
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true);
 
     public static readonly DiagnosticDescriptor DependencyContainerRule = new(
        "DEDI0001",
@@ -17,7 +25,7 @@ public static class AnalyzingRules
        isEnabledByDefault: true);
 
 
-    public static DiagnosticDescriptor ContainerMustBePartial = new(
+    public static readonly DiagnosticDescriptor ContainerMustBePartial = new(
         "DEDI0002",
         title: "Dependency container class MUST be partial",
         messageFormat: "Add the 'partial' modifier to the class",
@@ -26,7 +34,7 @@ public static class AnalyzingRules
         defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
-    public static DiagnosticDescriptor ContainerCanNotBeStatic = new(
+    public static readonly DiagnosticDescriptor ContainerCanNotBeStatic = new(
         "DEDI0003",
         title: "Dependency container class CAN NOT be static",
         messageFormat: "Remove the 'static' modifier from the class",
@@ -36,7 +44,7 @@ public static class AnalyzingRules
         isEnabledByDefault: true);
 
 
-    public static DiagnosticDescriptor MultipleRegistration = new(
+    public static readonly DiagnosticDescriptor MultipleRegistration = new(
         "DEDI0004",
         title: "Multiple registration of the same type is not allowed",
         messageFormat: "Remove the duplicate registration",
@@ -45,13 +53,12 @@ public static class AnalyzingRules
         defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
-    public static DiagnosticDescriptor DependencyTypeCanNotBeStatic = new(
-        "DEDI0005",
-        title: "Dependency type can not be static",
-        messageFormat: "Dependency type can not be static",
+    public static readonly DiagnosticDescriptor ImplementationTypeMustBeConcrete = new(
+        "DEDI0006",
+        title: "Implementation type must be concrete",
+        messageFormat: "Implementation type can not be an interface or abstract class",
         description: "",
         category: "Design",
         defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true);
-
 }

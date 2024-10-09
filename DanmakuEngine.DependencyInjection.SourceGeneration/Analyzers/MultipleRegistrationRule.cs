@@ -7,7 +7,7 @@ namespace DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers;
 public class MultipleRegistrationRule : ContainerClassAnalyzingRule
 {
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
-        => ImmutableArray.Create(AnalyzingRules.MultipleRegistration);
+        => ImmutableArray.Create(AnalysisRules.MultipleRegistration);
 
     public override bool RequiredToBeContainer => true;
 
@@ -43,7 +43,7 @@ public class MultipleRegistrationRule : ContainerClassAnalyzingRule
             if (registrations.Contains(dependencyType))
             {
                 context.ReportDiagnostic(Diagnostic.Create(
-                    AnalyzingRules.MultipleRegistration,
+                    AnalysisRules.MultipleRegistration,
                     attribute.ApplicationSyntaxReference?.GetSyntax().GetLocation()));
             }
             else

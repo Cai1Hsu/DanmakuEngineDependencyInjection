@@ -22,7 +22,7 @@ public class MultipleRegistrationRuleTests
                             }
                             """;
 
-        var expected = Verifier.Diagnostic(AnalyzingRules.MultipleRegistration).WithLocation(0);
+        var expected = Verifier.Diagnostic(AnalysisRules.MultipleRegistration).WithLocation(0);
 
         await Verifier.VerifyAnalyzerAsync(text, expected).ConfigureAwait(false);
     }
@@ -94,7 +94,7 @@ public class MultipleRegistrationRuleTests
                             }
                             """;
 
-        var expected = Verifier.Diagnostic(AnalyzingRules.MultipleRegistration).WithLocation(0);
+        var expected = Verifier.Diagnostic(AnalysisRules.MultipleRegistration).WithLocation(0);
 
         await Verifier.VerifyAnalyzerAsync(text, expected).ConfigureAwait(false);
     }

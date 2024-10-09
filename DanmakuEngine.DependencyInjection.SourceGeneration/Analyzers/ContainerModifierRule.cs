@@ -11,7 +11,7 @@ public class ContainerModifierRule : ContainerClassAnalyzingRule
     public override bool RequiredToBeContainer => true;
 
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
-        => ImmutableArray.Create(AnalyzingRules.ContainerMustBePartial, AnalyzingRules.ContainerCanNotBeStatic);
+        => ImmutableArray.Create(AnalysisRules.ContainerMustBePartial, AnalysisRules.ContainerCanNotBeStatic);
 
     public override void AnalyzeSymbol(SymbolAnalysisContext context, bool _)
     {
@@ -41,7 +41,7 @@ public class ContainerModifierRule : ContainerClassAnalyzingRule
         {
             foreach (var location in namedTypeSymbol.Locations)
             {
-                context.ReportDiagnostic(Diagnostic.Create(AnalyzingRules.ContainerMustBePartial, location));
+                context.ReportDiagnostic(Diagnostic.Create(AnalysisRules.ContainerMustBePartial, location));
             }
         }
 
@@ -73,14 +73,14 @@ public class ContainerModifierRule : ContainerClassAnalyzingRule
             {
                 foreach (var staticModifier in staticModifiers)
                 {
-                    context.ReportDiagnostic(Diagnostic.Create(AnalyzingRules.ContainerCanNotBeStatic, staticModifier.GetLocation()));
+                    context.ReportDiagnostic(Diagnostic.Create(AnalysisRules.ContainerCanNotBeStatic, staticModifier.GetLocation()));
                 }
             }
             else
             {
                 foreach (var location in namedTypeSymbol.Locations)
                 {
-                    context.ReportDiagnostic(Diagnostic.Create(AnalyzingRules.ContainerCanNotBeStatic, location));
+                    context.ReportDiagnostic(Diagnostic.Create(AnalysisRules.ContainerCanNotBeStatic, location));
                 }
             }
         }

@@ -9,7 +9,7 @@ public class DependencyRegistrationRule : ContainerClassAnalyzingRule
     public override bool RequiredToBeContainer => false;
 
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
-        => ImmutableArray.Create(AnalyzingRules.DependencyContainerRule);
+        => ImmutableArray.Create(AnalysisRules.DependencyContainerRule);
 
     public static ImmutableArray<string> RegistrationAttributes =
     [
@@ -41,7 +41,7 @@ public class DependencyRegistrationRule : ContainerClassAnalyzingRule
             if (RegistrationAttributes.Contains(fullName))
             {
                 context.ReportDiagnostic(
-                    Diagnostic.Create(AnalyzingRules.DependencyContainerRule,
+                    Diagnostic.Create(AnalysisRules.DependencyContainerRule,
                         attribute.ApplicationSyntaxReference?.GetSyntax().GetLocation())
                 );
             }

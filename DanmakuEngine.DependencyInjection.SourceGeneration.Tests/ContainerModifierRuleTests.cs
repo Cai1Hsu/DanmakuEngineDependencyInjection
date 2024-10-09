@@ -16,7 +16,7 @@ public class ContainerModifierRuleTests
                             }
                             """;
 
-        var expected = Verifier.Diagnostic(AnalyzingRules.ContainerMustBePartial).WithLocation(0);
+        var expected = Verifier.Diagnostic(AnalysisRules.ContainerMustBePartial).WithLocation(0);
 
         await Verifier.VerifyAnalyzerAsync(text, expected).ConfigureAwait(false);
     }
@@ -36,7 +36,7 @@ public class ContainerModifierRuleTests
                             }
                             """;
 
-        var expected = Verifier.Diagnostic(AnalyzingRules.ContainerMustBePartial).WithLocation(0);
+        var expected = Verifier.Diagnostic(AnalysisRules.ContainerMustBePartial).WithLocation(0);
 
         await Verifier.VerifyAnalyzerAsync(text, expected).ConfigureAwait(false);
     }
@@ -86,7 +86,7 @@ public class ContainerModifierRuleTests
                             }
                             """;
 
-        var expected = Verifier.Diagnostic(AnalyzingRules.ContainerCanNotBeStatic).WithLocation(0);
+        var expected = Verifier.Diagnostic(AnalysisRules.ContainerCanNotBeStatic).WithLocation(0);
 
         await Verifier.VerifyAnalyzerAsync(text, expected).ConfigureAwait(false);
     }
