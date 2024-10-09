@@ -15,6 +15,8 @@ public class RegistrationTypeRule : IContainerClassAnalysisRule
 
     public bool WantMarkerRegistrationType => true;
 
+    public bool ValidOnTypesWithoutRegistrations => false;
+
     public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer, bool hasRegistrations)
     {
         INamedTypeSymbol containerTypeSymbol = (INamedTypeSymbol)context.Symbol;

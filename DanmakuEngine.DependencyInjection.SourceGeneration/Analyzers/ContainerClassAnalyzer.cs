@@ -50,8 +50,8 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
 
         foreach (var rule in AnalyzingRules)
         {
-            if ((!rule.RequiredToBeContainer || isContainer)
-                || (hasRegistration && rule.WantMarkerRegistrationType))
+            if ((!rule.RequiredToBeContainer || isContainer || rule.WantMarkerRegistrationType)
+                && (hasRegistration || rule.ValidOnTypesWithoutRegistrations))
             {
                 try
                 {

@@ -14,5 +14,7 @@ public interface IContainerClassAnalysisRule
     // but the interface itself can't be a container, it's just a marker
     bool WantMarkerRegistrationType { get; }
 
+    bool ValidOnTypesWithoutRegistrations { get; }
+
     void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer, bool hasRegistrations);
 }

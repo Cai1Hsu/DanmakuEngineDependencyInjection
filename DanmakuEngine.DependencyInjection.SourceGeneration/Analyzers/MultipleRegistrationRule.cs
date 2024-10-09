@@ -13,6 +13,8 @@ public class MultipleRegistrationRule : IContainerClassAnalysisRule
 
     public bool WantMarkerRegistrationType => true;
 
+    public bool ValidOnTypesWithoutRegistrations => false;
+
     public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer, bool _hasRegistrations)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;

@@ -13,6 +13,8 @@ public class DependencyRegistrationRule : IContainerClassAnalysisRule
 
     public bool WantMarkerRegistrationType => true;
 
+    public bool ValidOnTypesWithoutRegistrations => false;
+
     public static readonly string DependencyContainerAttribute = "global::DanmakuEngine.DependencyInjection.DependencyContainerAttribute";
 
     public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer, bool hasRegistrations)

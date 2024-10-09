@@ -16,6 +16,8 @@ public class ContainerModifierRule : IContainerClassAnalysisRule
     // Since we don't generate code for marker types, we don't need to check for them
     public bool WantMarkerRegistrationType => false;
 
+    public bool ValidOnTypesWithoutRegistrations => true;
+
     public void AnalyzeSymbol(SymbolAnalysisContext context, bool _isContainer, bool _hasRegistrations)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
