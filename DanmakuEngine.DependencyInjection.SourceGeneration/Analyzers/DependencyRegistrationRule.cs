@@ -11,14 +11,14 @@ public class DependencyRegistrationRule : ContainerClassAnalyzingRule
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         => ImmutableArray.Create(AnalysisRules.DependencyContainerRule);
 
-    public static ImmutableArray<string> RegistrationAttributes =
+    public static readonly ImmutableArray<string> RegistrationAttributes =
     [
         "global::DanmakuEngine.DependencyInjection.SingletonAttribute",
         "global::DanmakuEngine.DependencyInjection.TransientAttribute",
         "global::DanmakuEngine.DependencyInjection.ScopedAttribute"
     ];
 
-    public static string DependencyContainerAttribute = "global::DanmakuEngine.DependencyInjection.DependencyContainerAttribute";
+    public static readonly string DependencyContainerAttribute = "global::DanmakuEngine.DependencyInjection.DependencyContainerAttribute";
 
     public override void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)
     {

@@ -12,7 +12,7 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         => AnalyzingRules.SelectMany(r => r.SupportedDiagnostics).ToImmutableArray();
 
-    public static ImmutableArray<ContainerClassAnalyzingRule> AnalyzingRules = ImmutableArray.Create<ContainerClassAnalyzingRule>(
+    public static readonly ImmutableArray<ContainerClassAnalyzingRule> AnalyzingRules = ImmutableArray.Create<ContainerClassAnalyzingRule>(
         new DependencyRegistrationRule(),
         new ContainerModifierRule(),
         new MultipleRegistrationRule(),
