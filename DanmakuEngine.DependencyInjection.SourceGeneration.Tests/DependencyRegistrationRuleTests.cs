@@ -16,7 +16,7 @@ public class DependencyRegistrationRuleTests
                             }
                             """;
 
-        var expected = Verifier.Diagnostic(DependencyRegistrationRule.DependencyContainerRule).WithLocation(0);
+        var expected = Verifier.Diagnostic(AnalyzingRules.DependencyContainerRule).WithLocation(0);
 
         await Verifier.VerifyAnalyzerAsync(text, expected).ConfigureAwait(false);
     }

@@ -1,5 +1,3 @@
-#pragma warning disable RS2008 // Disable analyzer release tracking
-
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -10,17 +8,8 @@ public class DependencyRegistrationRule : ContainerClassAnalyzingRule
 {
     public override bool RequiredToBeContainer => false;
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DependencyContainerRule);
-
-    public static readonly DiagnosticDescriptor DependencyContainerRule = new(
-       "DEDI0001",
-       title: "Dependencies MUST be registered on a dependency container",
-       messageFormat: "Decorate the class with the [DependencyContainer] attribute",
-       description: "",
-       category: "Design",
-       defaultSeverity: DiagnosticSeverity.Warning,
-       isEnabledByDefault: true);
-
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
+        => ImmutableArray.Create(AnalyzingRules.DependencyContainerRule);
 
     public static ImmutableArray<string> RegistrationAttributes =
     [
@@ -52,7 +41,7 @@ public class DependencyRegistrationRule : ContainerClassAnalyzingRule
             if (RegistrationAttributes.Contains(fullName))
             {
                 context.ReportDiagnostic(
-                    Diagnostic.Create(DependencyContainerRule,
+                    Diagnostic.Create(AnalyzingRules.DependencyContainerRule,
                         attribute.ApplicationSyntaxReference?.GetSyntax().GetLocation())
                 );
             }

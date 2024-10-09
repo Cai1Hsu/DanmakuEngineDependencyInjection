@@ -1,5 +1,3 @@
-#pragma warning disable RS2008 // Disable analyzer release tracking
-
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -10,27 +8,10 @@ namespace DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers;
 
 public class ContainerModifierRule : ContainerClassAnalyzingRule
 {
-    public static DiagnosticDescriptor ContainerMustBePartial = new(
-        "DEDI0002",
-        title: "Dependency container class MUST be partial",
-        messageFormat: "Add the 'partial' modifier to the class",
-        description: "",
-        category: "Design",
-        defaultSeverity: DiagnosticSeverity.Error,
-        isEnabledByDefault: true);
-
-    public static DiagnosticDescriptor ContainerCanNotBeStatic = new(
-        "DEDI0003",
-        title: "Dependency container class CAN NOT be static",
-        messageFormat: "Remove the 'static' modifier from the class",
-        description: "",
-        category: "Design",
-        defaultSeverity: DiagnosticSeverity.Error,
-        isEnabledByDefault: true);
-
     public override bool RequiredToBeContainer => true;
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(ContainerMustBePartial, ContainerCanNotBeStatic);
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
+        => ImmutableArray.Create(AnalyzingRules.ContainerMustBePartial, AnalyzingRules.ContainerCanNotBeStatic);
 
     public override void AnalyzeSymbol(SymbolAnalysisContext context, bool _)
     {
@@ -60,7 +41,7 @@ public class ContainerModifierRule : ContainerClassAnalyzingRule
         {
             foreach (var location in namedTypeSymbol.Locations)
             {
-                context.ReportDiagnostic(Diagnostic.Create(ContainerMustBePartial, location));
+                context.ReportDiagnostic(Diagnostic.Create(AnalyzingRules.ContainerMustBePartial, location));
             }
         }
 
@@ -92,14 +73,14 @@ public class ContainerModifierRule : ContainerClassAnalyzingRule
             {
                 foreach (var staticModifier in staticModifiers)
                 {
-                    context.ReportDiagnostic(Diagnostic.Create(ContainerCanNotBeStatic, staticModifier.GetLocation()));
+                    context.ReportDiagnostic(Diagnostic.Create(AnalyzingRules.ContainerCanNotBeStatic, staticModifier.GetLocation()));
                 }
             }
             else
             {
                 foreach (var location in namedTypeSymbol.Locations)
                 {
-                    context.ReportDiagnostic(Diagnostic.Create(ContainerCanNotBeStatic, location));
+                    context.ReportDiagnostic(Diagnostic.Create(AnalyzingRules.ContainerCanNotBeStatic, location));
                 }
             }
         }

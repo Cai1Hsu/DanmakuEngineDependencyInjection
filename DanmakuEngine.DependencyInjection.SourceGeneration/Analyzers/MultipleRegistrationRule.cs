@@ -1,5 +1,3 @@
-#pragma warning disable RS2008 // Disable analyzer release tracking
-
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -8,16 +6,8 @@ namespace DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers;
 
 public class MultipleRegistrationRule : ContainerClassAnalyzingRule
 {
-    public static DiagnosticDescriptor MultipleRegistration = new(
-        "DEDI0004",
-        title: "Multiple registration of the same type is not allowed",
-        messageFormat: "Remove the duplicate registration",
-        description: "",
-        category: "Design",
-        defaultSeverity: DiagnosticSeverity.Error,
-        isEnabledByDefault: true);
-
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(MultipleRegistration);
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
+        => ImmutableArray.Create(AnalyzingRules.MultipleRegistration);
 
     public override bool RequiredToBeContainer => true;
 
@@ -53,7 +43,7 @@ public class MultipleRegistrationRule : ContainerClassAnalyzingRule
             if (registrations.Contains(dependencyType))
             {
                 context.ReportDiagnostic(Diagnostic.Create(
-                    MultipleRegistration,
+                    AnalyzingRules.MultipleRegistration,
                     attribute.ApplicationSyntaxReference?.GetSyntax().GetLocation()));
             }
             else
