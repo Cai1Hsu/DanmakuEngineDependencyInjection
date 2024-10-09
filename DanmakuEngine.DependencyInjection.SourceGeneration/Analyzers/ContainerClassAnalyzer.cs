@@ -27,6 +27,13 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
         context.RegisterSymbolAction(AnalyzeSymbol, SymbolKind.NamedType);
     }
 
+    public static readonly ImmutableArray<string> RegistrationAttributes =
+    [
+        "global::DanmakuEngine.DependencyInjection.SingletonAttribute",
+        "global::DanmakuEngine.DependencyInjection.TransientAttribute",
+        "global::DanmakuEngine.DependencyInjection.ScopedAttribute"
+    ];
+
     public static readonly string IDependencyContainer = "global::DanmakuEngine.DependencyInjection.IDependencyContainer";
 
     public void AnalyzeSymbol(SymbolAnalysisContext context)
@@ -38,13 +45,17 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
         bool isContainer = attributes.Any(a => a.AttributeClass?.ToGlobalPrefixedFullName() == DependencyRegistrationRule.DependencyContainerAttribute)
             || namedTypeSymbol.AllInterfaces.Any(i => i.ToGlobalPrefixedFullName() == IDependencyContainer);
 
+        bool hasRegistration = attributes.Any(a => a.AttributeClass is not null
+            && RegistrationAttributes.Contains(a.AttributeClass.ToGlobalPrefixedFullName()));
+
         foreach (var rule in AnalyzingRules)
         {
-            if (!rule.RequiredToBeContainer || isContainer)
+            if ((!rule.RequiredToBeContainer || isContainer)
+                || (hasRegistration && rule.WantMarkerRegistrationType))
             {
                 try
                 {
-                    rule.AnalyzeSymbol(context, isContainer);
+                    rule.AnalyzeSymbol(context, isContainer, hasRegistration);
                 }
 #if DEBUG
                 catch (Exception e)

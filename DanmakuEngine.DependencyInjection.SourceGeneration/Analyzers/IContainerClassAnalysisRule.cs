@@ -10,5 +10,9 @@ public interface IContainerClassAnalysisRule
 
     bool RequiredToBeContainer { get; }
 
-    void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer);
+    // registrations on interfaces without [DependencyContainer] can be inherited
+    // but the interface itself can't be a container, it's just a marker
+    bool WantMarkerRegistrationType { get; }
+
+    void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer, bool hasRegistrations);
 }

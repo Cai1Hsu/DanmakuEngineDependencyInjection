@@ -17,8 +17,8 @@ public static class AnalysisRules
 
     public static readonly DiagnosticDescriptor DependencyContainerRule = new(
        "DEDI0001",
-       title: "Dependencies MUST be registered on a dependency container",
-       messageFormat: "Decorate the class with the [DependencyContainer] attribute",
+       title: "Dependencies should be registered on a dependency container",
+       messageFormat: "Decorate the class with the [DependencyContainer] attribute. If you are mean to use this type as a marker type for inheriting dependencies, suppress this warning.",
        description: "",
        category: "Design",
        defaultSeverity: DiagnosticSeverity.Warning,

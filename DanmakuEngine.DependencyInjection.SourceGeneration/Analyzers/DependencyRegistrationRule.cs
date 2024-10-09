@@ -11,25 +11,20 @@ public class DependencyRegistrationRule : IContainerClassAnalysisRule
     public ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         => ImmutableArray.Create(AnalysisRules.DependencyContainerRule);
 
-    public static readonly ImmutableArray<string> RegistrationAttributes =
-    [
-        "global::DanmakuEngine.DependencyInjection.SingletonAttribute",
-        "global::DanmakuEngine.DependencyInjection.TransientAttribute",
-        "global::DanmakuEngine.DependencyInjection.ScopedAttribute"
-    ];
+    public bool WantMarkerRegistrationType => true;
 
     public static readonly string DependencyContainerAttribute = "global::DanmakuEngine.DependencyInjection.DependencyContainerAttribute";
 
-    public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer)
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer, bool hasRegistrations)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 
-        ImmutableArray<AttributeData> attributes = namedTypeSymbol.GetAttributes();
-
-        if (isContainer)
+        if (isContainer || !hasRegistrations)
         {
             return;
         }
+
+        ImmutableArray<AttributeData> attributes = namedTypeSymbol.GetAttributes();
 
         foreach (AttributeData? attribute in attributes)
         {
@@ -38,7 +33,7 @@ public class DependencyRegistrationRule : IContainerClassAnalysisRule
             if (fullName is null)
                 continue;
 
-            if (RegistrationAttributes.Contains(fullName))
+            if (ContainerClassAnalyzer.RegistrationAttributes.Contains(fullName))
             {
                 context.ReportDiagnostic(
                     Diagnostic.Create(AnalysisRules.DependencyContainerRule,

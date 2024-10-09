@@ -13,13 +13,15 @@ public class RegistrationTypeRule : IContainerClassAnalysisRule
 
     public bool RequiredToBeContainer => true;
 
-    public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer)
+    public bool WantMarkerRegistrationType => true;
+
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer, bool hasRegistrations)
     {
         INamedTypeSymbol containerTypeSymbol = (INamedTypeSymbol)context.Symbol;
 
         var containerAttributes = containerTypeSymbol.GetAttributes()
             .Where(a => a.AttributeClass is not null)
-            .Where(a => DependencyRegistrationRule.RegistrationAttributes.Contains(a.AttributeClass!.ToGlobalPrefixedFullName()));
+            .Where(a => ContainerClassAnalyzer.RegistrationAttributes.Contains(a.AttributeClass!.ToGlobalPrefixedFullName()));
 
         var registrations = containerAttributes
             .Where(a => a.AttributeClass!.IsGenericType)

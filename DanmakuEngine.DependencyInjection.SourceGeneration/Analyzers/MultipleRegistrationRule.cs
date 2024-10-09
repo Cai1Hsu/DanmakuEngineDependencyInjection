@@ -11,7 +11,9 @@ public class MultipleRegistrationRule : IContainerClassAnalysisRule
 
     public bool RequiredToBeContainer => true;
 
-    public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer)
+    public bool WantMarkerRegistrationType => true;
+
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer, bool _hasRegistrations)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 
@@ -19,7 +21,7 @@ public class MultipleRegistrationRule : IContainerClassAnalysisRule
 
         // Get the generic type parameters of all attributes
         var registrationAttributes = attributes.Where(a => a.AttributeClass is not null
-            && DependencyRegistrationRule.RegistrationAttributes.Contains(a.AttributeClass.ToGlobalPrefixedFullName()));
+            && ContainerClassAnalyzer.RegistrationAttributes.Contains(a.AttributeClass.ToGlobalPrefixedFullName()));
 
         if (registrationAttributes is null || !registrationAttributes.Any())
             return;

@@ -13,7 +13,10 @@ public class ContainerModifierRule : IContainerClassAnalysisRule
     public ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         => ImmutableArray.Create(AnalysisRules.ContainerMustBePartial, AnalysisRules.ContainerCanNotBeStatic);
 
-    public void AnalyzeSymbol(SymbolAnalysisContext context, bool _)
+    // Since we don't generate code for marker types, we don't need to check for them
+    public bool WantMarkerRegistrationType => false;
+
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool _isContainer, bool _hasRegistrations)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 
