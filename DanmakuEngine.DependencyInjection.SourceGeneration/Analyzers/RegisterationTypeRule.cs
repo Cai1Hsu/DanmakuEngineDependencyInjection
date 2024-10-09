@@ -13,7 +13,7 @@ public class RegistrationTypeRule : IContainerClassAnalysisRule
 
     public bool RequiredToBeContainer => true;
 
-    public void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer)
     {
         INamedTypeSymbol containerTypeSymbol = (INamedTypeSymbol)context.Symbol;
 

@@ -14,7 +14,7 @@ public class ConstructorRule : IContainerClassAnalysisRule
 
     public const string ConstructorMethod = ".ctor";
 
-    public void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer)
     {
         INamedTypeSymbol containerTypeSymbol = (INamedTypeSymbol)context.Symbol;
 

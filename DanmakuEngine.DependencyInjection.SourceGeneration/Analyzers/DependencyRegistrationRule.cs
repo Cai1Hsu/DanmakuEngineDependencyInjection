@@ -20,13 +20,13 @@ public class DependencyRegistrationRule : IContainerClassAnalysisRule
 
     public static readonly string DependencyContainerAttribute = "global::DanmakuEngine.DependencyInjection.DependencyContainerAttribute";
 
-    public void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 
         ImmutableArray<AttributeData> attributes = namedTypeSymbol.GetAttributes();
 
-        if (IsContainer)
+        if (isContainer)
         {
             return;
         }

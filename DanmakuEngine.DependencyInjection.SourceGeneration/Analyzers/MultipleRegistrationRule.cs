@@ -11,7 +11,7 @@ public class MultipleRegistrationRule : IContainerClassAnalysisRule
 
     public bool RequiredToBeContainer => true;
 
-    public void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 

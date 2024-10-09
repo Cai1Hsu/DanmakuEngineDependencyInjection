@@ -10,5 +10,5 @@ public interface IContainerClassAnalysisRule
 
     bool RequiredToBeContainer { get; }
 
-    void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer);
+    void AnalyzeSymbol(SymbolAnalysisContext context, bool isContainer);
 }
