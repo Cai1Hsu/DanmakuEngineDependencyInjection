@@ -15,7 +15,8 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
     public static ImmutableArray<ContainerClassAnalyzingRule> AnalyzingRules = ImmutableArray.Create<ContainerClassAnalyzingRule>(
         new DependencyRegistrationRule(),
         new ContainerModifierRule(),
-        new MultipleRegistrationRule()
+        new MultipleRegistrationRule(),
+        new RegistrationTypeRule()
     );
 
     public override void Initialize(AnalysisContext context)
