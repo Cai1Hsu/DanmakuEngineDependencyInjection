@@ -27,13 +27,16 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
         context.RegisterSymbolAction(AnalyzeSymbol, SymbolKind.NamedType);
     }
 
+    public static readonly string IDependencyContainer = "global::DanmakuEngine.DependencyInjection.IDependencyContainer";
+
     public void AnalyzeSymbol(SymbolAnalysisContext context)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 
         var attributes = namedTypeSymbol.GetAttributes();
 
-        bool isContainer = attributes.Any(a => a.AttributeClass?.ToGlobalPrefixedFullName() == DependencyRegistrationRule.DependencyContainerAttribute);
+        bool isContainer = attributes.Any(a => a.AttributeClass?.ToGlobalPrefixedFullName() == DependencyRegistrationRule.DependencyContainerAttribute)
+            || namedTypeSymbol.AllInterfaces.Any(i => i.ToGlobalPrefixedFullName() == IDependencyContainer);
 
         foreach (var rule in AnalyzingRules)
         {
