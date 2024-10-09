@@ -4,11 +4,11 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers;
 
-public class DependencyRegistrationRule : ContainerClassAnalyzingRule
+public class DependencyRegistrationRule : IContainerClassAnalysisRule
 {
-    public override bool RequiredToBeContainer => false;
+    public bool RequiredToBeContainer => false;
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
+    public ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         => ImmutableArray.Create(AnalysisRules.DependencyContainerRule);
 
     public static readonly ImmutableArray<string> RegistrationAttributes =
@@ -20,7 +20,7 @@ public class DependencyRegistrationRule : ContainerClassAnalyzingRule
 
     public static readonly string DependencyContainerAttribute = "global::DanmakuEngine.DependencyInjection.DependencyContainerAttribute";
 
-    public override void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 

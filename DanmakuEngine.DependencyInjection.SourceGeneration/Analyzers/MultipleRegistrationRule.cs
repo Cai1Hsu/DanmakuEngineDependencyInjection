@@ -4,14 +4,14 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers;
 
-public class MultipleRegistrationRule : ContainerClassAnalyzingRule
+public class MultipleRegistrationRule : IContainerClassAnalysisRule
 {
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
+    public ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         => ImmutableArray.Create(AnalysisRules.MultipleRegistration);
 
-    public override bool RequiredToBeContainer => true;
+    public bool RequiredToBeContainer => true;
 
-    public override void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool IsContainer)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 

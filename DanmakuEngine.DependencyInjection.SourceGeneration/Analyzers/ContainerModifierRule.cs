@@ -6,14 +6,14 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace DanmakuEngine.DependencyInjection.SourceGeneration.Analyzers;
 
-public class ContainerModifierRule : ContainerClassAnalyzingRule
+public class ContainerModifierRule : IContainerClassAnalysisRule
 {
-    public override bool RequiredToBeContainer => true;
+    public bool RequiredToBeContainer => true;
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
+    public ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         => ImmutableArray.Create(AnalysisRules.ContainerMustBePartial, AnalysisRules.ContainerCanNotBeStatic);
 
-    public override void AnalyzeSymbol(SymbolAnalysisContext context, bool _)
+    public void AnalyzeSymbol(SymbolAnalysisContext context, bool _)
     {
         INamedTypeSymbol namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
 
