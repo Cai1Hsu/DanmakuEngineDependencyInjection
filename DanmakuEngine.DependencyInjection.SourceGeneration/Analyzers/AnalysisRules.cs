@@ -11,7 +11,7 @@ public static class AnalysisRules
         title: "Analyzer Exception",
         messageFormat: "An exception occurred while analyzing rule {0} on {1}, message: {1}",
         description: "",
-        category: "Design",
+        category: "Internal",
         defaultSeverity: DiagnosticSeverity.Warning,
         isEnabledByDefault: true);
 
