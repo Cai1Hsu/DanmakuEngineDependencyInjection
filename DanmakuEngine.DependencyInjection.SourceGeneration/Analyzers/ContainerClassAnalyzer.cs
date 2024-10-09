@@ -49,7 +49,7 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
                     foreach (var location in namedTypeSymbol.Locations)
                     {
                         context.ReportDiagnostic(Diagnostic.Create(
-                            AnalysisRules.AnalyzerException, 
+                            AnalysisRules.AnalyzerException,
                             location, rule.GetType().Name, namedTypeSymbol.Name, e.Message));
                     }
                 }
