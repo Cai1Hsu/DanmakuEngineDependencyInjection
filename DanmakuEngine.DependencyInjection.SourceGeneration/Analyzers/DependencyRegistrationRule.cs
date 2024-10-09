@@ -1,4 +1,4 @@
-#pragma warning disable RS2008 // Enable analyzer release tracking
+#pragma warning disable RS2008 // Disable analyzer release tracking
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
