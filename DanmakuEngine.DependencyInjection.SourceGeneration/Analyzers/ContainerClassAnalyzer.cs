@@ -38,7 +38,25 @@ public class ContainerClassAnalyzer : DiagnosticAnalyzer
         {
             if (!rule.RequiredToBeContainer || isContainer)
             {
-                rule.AnalyzeSymbol(context, isContainer);
+                try
+                {
+                    rule.AnalyzeSymbol(context, isContainer);
+                }
+#if DEBUG
+                catch (Exception e)
+                {
+                    foreach (var location in namedTypeSymbol.Locations)
+                    {
+                        context.ReportDiagnostic(Diagnostic.Create(
+                            AnalysisRules.AnalyzerException, 
+                            location, rule.GetType().Name, namedTypeSymbol.Name, e.Message));
+                    }
+                }
+#else
+                catch (Exception)
+                {
+                }
+#endif
             }
         }
     }
